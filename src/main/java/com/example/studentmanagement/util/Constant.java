@@ -7,4 +7,5 @@ public class Constant {
     public static final String COURSE_NOT_EXISTS = "Course does not exists!";
     public static final String STUDENT_NOT_EXISTS = "Student does not exists!";
     public static final String TEACHER_NOT_EXISTS = "Teacher does not exists!";
+    public static final String USER_NOT_EXISTS = "User does not exists!";
 }
