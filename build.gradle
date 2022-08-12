@@ -25,6 +25,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.7.1'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 }
 
 tasks.named('test') {
