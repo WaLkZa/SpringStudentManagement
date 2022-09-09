@@ -4,7 +4,6 @@ import com.example.studentmanagement.exception.CourseNotFoundException;
 import com.example.studentmanagement.exception.TeacherNotFoundException;
 import com.example.studentmanagement.model.dto.CourseDto;
 import com.example.studentmanagement.model.dto.CourseTeacherDto;
-import com.example.studentmanagement.model.dto.StudentDto;
 import com.example.studentmanagement.model.entity.Course;
 import com.example.studentmanagement.model.entity.Teacher;
 import com.example.studentmanagement.repository.CourseRepository;
@@ -12,14 +11,12 @@ import com.example.studentmanagement.repository.TeacherRepository;
 import com.example.studentmanagement.service.CourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -45,11 +42,9 @@ public class CourseServiceImpl implements CourseService {
 
         Page<Course> courses = this.courseRepository.findAll(pageable);
 
-        List<CourseDto> mappedDto = courses.stream()
-                .map(course -> this.modelMapper.map(course, CourseDto.class))
-                .collect(Collectors.toList());
+        Page<CourseDto> mappedDto = courses.map(course -> this.modelMapper.map(course, CourseDto.class));
 
-        return new PageImpl<>(mappedDto);
+        return mappedDto;
     }
 
     @Override

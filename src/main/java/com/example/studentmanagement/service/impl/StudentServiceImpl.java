@@ -6,13 +6,11 @@ import com.example.studentmanagement.model.dto.CourseStudentDto;
 import com.example.studentmanagement.model.dto.StudentDto;
 import com.example.studentmanagement.model.entity.Course;
 import com.example.studentmanagement.model.entity.Student;
-import com.example.studentmanagement.model.entity.Teacher;
 import com.example.studentmanagement.repository.CourseRepository;
 import com.example.studentmanagement.repository.StudentRepository;
 import com.example.studentmanagement.service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -51,11 +49,9 @@ public class StudentServiceImpl implements StudentService {
 
         Page<Student> students = this.studentRepository.findAll(pageable);
 
-        List<StudentDto> mappedDto = students.stream()
-                .map(student -> this.modelMapper.map(student, StudentDto.class))
-                .collect(Collectors.toList());
+        Page<StudentDto> mappedDto = students.map(student -> this.modelMapper.map(student, StudentDto.class));
 
-        return new PageImpl<>(mappedDto);
+        return mappedDto;
     }
 
     @Override
